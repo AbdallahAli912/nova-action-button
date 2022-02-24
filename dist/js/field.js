@@ -26650,6 +26650,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     /**
+     * Determine what to do with the action button click
+     */
+    handleClick: function handleClick() {
+      if (this.withoutConfirmation) {
+        this.executeAction();
+      } else {
+        this.openConfirmationModal();
+      }
+    },
+
+    /**
      * Confirm with the user that they actually want to run the selected action.
      */
     openConfirmationModal: function openConfirmationModal() {
@@ -26781,6 +26792,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     buttonText: function buttonText() {
       return this.field.text || this.__("Run");
+    },
+    withoutConfirmation: function withoutConfirmation() {
+      return this.field.withoutConfirmation || false;
     },
     hidden: function hidden() {
       return this.field.hidden || false;
@@ -27077,7 +27091,7 @@ var render = function() {
           class: { hidden: _vm.hidden },
           style: "background-color: " + _vm.field.buttonColor + " !important",
           attrs: { disabled: _vm.disabled },
-          on: { click: _vm.openConfirmationModal }
+          on: { click: _vm.handleClick }
         },
         [
           _vm.showLoading
@@ -27249,6 +27263,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         /**
+         * Determine what to do with the action button click
+         */
+        handleClick: function handleClick() {
+            if (this.withoutConfirmation) {
+                this.executeAction();
+            } else {
+                this.openConfirmationModal();
+            }
+        },
+
+
+        /**
          * Confirm with the user that they actually want to run the selected action.
          */
         openConfirmationModal: function openConfirmationModal() {
@@ -27377,6 +27403,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         buttonText: function buttonText() {
             return this.field.text || this.__('Run');
         },
+        withoutConfirmation: function withoutConfirmation() {
+            return this.field.withoutConfirmation || false;
+        },
         svg: function svg() {
             return this.field.svg || false;
         }
@@ -27406,11 +27435,7 @@ var render = function() {
                 style:
                   "background-color: " + _vm.field.buttonColor + " !important",
                 attrs: { disabled: _vm.field.readonly },
-                on: {
-                  click: function($event) {
-                    _vm.confirmActionModalOpened = true
-                  }
-                }
+                on: { click: _vm.handleClick }
               },
               [
                 _c("span", [_vm._v(_vm._s(_vm.buttonText))]),

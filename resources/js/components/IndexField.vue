@@ -3,7 +3,7 @@
     <button
       class="btn btn-default btn-primary flex items-center justify-center"
       :class="{ hidden: hidden }"
-      @click="openConfirmationModal"
+      @click="handleClick"
       :disabled="disabled"
       :style="`background-color: ${field.buttonColor} !important`"
     >
@@ -71,6 +71,16 @@ export default {
     confirmActionModalOpened: false,
   }),
   methods: {
+    /**
+     * Determine what to do with the action button click
+     */
+    handleClick() {
+      if(this.withoutConfirmation) {
+        this.executeAction();
+      } else {
+        this.openConfirmationModal();
+      }
+    },
     /**
      * Confirm with the user that they actually want to run the selected action.
      */
@@ -198,6 +208,10 @@ export default {
 
     buttonText() {
       return this.field.text || this.__("Run");
+    },
+
+    withoutConfirmation() {
+      return this.field.withoutConfirmation || false;
     },
 
     hidden() {
